@@ -4,23 +4,54 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import LayoutSideMenu from './layout/layoutSideMenu';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, theme } from 'antd';
+import { createBrowserRouter, Route, RouterProvider, Routes } from 'react-router-dom';
+import HomeDashboard from './pages/homeDashboard';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LayoutSideMenu />,
+    children: [
+      {
+        path: "/",
+        element: <HomeDashboard />,
+      },
+    ],
+  },
+  // {
+  //   path: "*",
+  //   element: <Error />
+  // }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-<ConfigProvider
-      theme={{
-        components: {
-          Layout: {
-            siderBg:
-              "linear-gradient(145deg, rgba(255,68,145,1) 0%, rgba(244,141,1,1) 100%)",
-          },
-        },
-      }}
-    ></ConfigProvider>
 root.render(
-  <React.StrictMode>
-    <LayoutSideMenu />
-  </React.StrictMode>
+  <ConfigProvider
+    theme={{
+      algorithm: theme.darkAlgorithm,
+      components: {
+        Menu: {
+          darkItemBg: "#303845",
+          darkSubMenuItemBg: "#2C333F",
+          darkItemSelectedBg: "#567796",
+        },
+        Layout: {
+          siderBg: "#303845",
+          triggerBg: "#2C333F",
+          bodyBg: "#3C4557"
+        },
+        Select:{
+          selectorBg: "#303845",
+          optionSelectedBg:"#3C4557",
+        }
+      },
+    }}
+  >
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </ConfigProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,80 +1,48 @@
 import React, { useState } from 'react';
-import { CiHome } from "react-icons/ci";
-import { CiGrid41 } from "react-icons/ci";
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { IoHomeOutline } from "react-icons/io5";
+import { WiDayCloudy } from "react-icons/wi";
+import { BsBadge3D } from "react-icons/bs"; 
+import { PiBuildingOffice } from "react-icons/pi";
+import { Layout, Menu } from 'antd';
+import "../assets/style/antDesignCustom.css"
+import { Outlet } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
+  return { key, icon, children, label, };
 }
 
-const items = [
-  getItem('Option 1', '1', <CiHome />),
-  getItem('Option 2', '2', <CiHome />),
-  getItem('User', 'sub1', <CiGrid41 />, [
+
+const menuItems = [
+  getItem('Inicio', 'home', <IoHomeOutline size={18}/>),
+  getItem('Categorias', 'category', <WiDayCloudy size={22}/>, [
     getItem('Tom', '3'),
     getItem('Bill', '4'),
     getItem('Alex', '5'),
   ]),
-  getItem('Team', 'sub2', <CiGrid41 />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <CiGrid41 />),
+  getItem('Modelos 3D', '3d', <BsBadge3D size={20} />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+  getItem('Sobre nosotros', 'about-us', <PiBuildingOffice size={20}/>),
 ];
 
 const LayoutSideMenu = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const { token: { colorBgContainer, borderRadiusLG }, } = theme.useToken();
   
   return (
-    <Layout
-      style={{
-        minHeight: '100vh',
-      }}
+  
+    <Layout theme={"light"} style={{ minHeight: '100vh', backgroundColor: "#303845"}} 
     >
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      
+
+      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} width={250} >
         <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+          <img src="https://www.ambiente.gob.sv/wp-content/themes/instituciones/img/LOGOMARN-B.png" alt="MARN logo" className='py-5'/>
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={menuItems} height={50} style={{marginTop: "15%"}}/>
       </Sider>
       <Layout>
-        
-        <Content
-          style={{
-            margin: '0 16px',
-          }}
-        >
-          <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            Bill is a cat.
-          </div>
-
-          {/* AQUI VA EL CONYENIDOOO */}
+        <Content>
+          <Outlet />
         </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );
