@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 import { useWeatherStation } from '../pages/weatherStationProvider';
-import SanAndresData from "../Data/SanAndres.csv"
-import SantiagoMariaData from "../Data/SantiagoMaria.csv"
-import NuevaConcepcionData from "../Data/NuevaConcepcion.csv"
-import MontecristoData from "../Data/Montecristo.csv"
+import SanAndresData from "../Data/SanAndres.csv";
+import SantiagoMariaData from "../Data/SantiagoMaria.csv";
 
 const ConvertDataToJson = () => {
   const { selectedStation } = useWeatherStation();
@@ -15,18 +13,13 @@ const ConvertDataToJson = () => {
   // URLs de los archivos CSV
   const csvUrls = [
     SanAndresData,
-    SantiagoMariaData,
-    NuevaConcepcionData,
-    MontecristoData
+    SantiagoMariaData
   ];
 
   // Mapeo de los nombres descriptivos a las claves en `data`
   const stationMapping = {
     'San Andres': 'stationSanAndres',
     'Santiago de Maria': 'stationSantiagoMaria',
-    'Nueva Concepcion': 'stationConcepcion',
-    'Monte Cristo': 'stationMonteCristo',
-    // Agrega otros mapeos si es necesario
   };
 
   // Función para convertir CSV a JSON
@@ -52,7 +45,7 @@ const ConvertDataToJson = () => {
         // Convertir cada archivo CSV en JSON con nombres descriptivos para las claves
         const dataEntries = await Promise.all(
           csvUrls.map((url, index) => {
-            const key = `station${['SanAndres', 'SantiagoMaria', 'Concepcion', 'MonteCristo'][index]}`;
+            const key = `station${['SanAndres', 'SantiagoMaria'][index]}`;
             return fetchCsvData(url, key);
           })
         );
@@ -75,15 +68,11 @@ const ConvertDataToJson = () => {
   }, []);
 
   // Obtener la clave correcta basándote en el mapeo
-  const stationKey = stationMapping[selectedStation] || 'stationSanAndres'; // Default to stationSanAndres if not found
+  const stationKey = stationMapping[selectedStation] || 'stationSanAndres';
   const stationData = data[stationKey] || [];
 
-  // useEffect(() => {
-  //   console.log(`Datos de ${stationKey}:`, stationData);
-  // }, [data, selectedStation]);
-console.log("stationData", stationData)
-  return stationData;
 
+  return { data: stationData, loading, error };
 };
 
 export default ConvertDataToJson;
