@@ -20,7 +20,7 @@ const HomeDashboard = () => {
     <section className="p-10">
       <section className="grid grid-cols-2 gap-10">
         <article>
-          <h2 className="text-white">Lunes 17 de julio 2024</h2>
+          <h2 className="text-white">{data[0].fecha}</h2>
           <h1 className="text-title-blue text-2xl">{selectedStation}</h1>
           <WeatherDashboardCard data={data} />
         </article>

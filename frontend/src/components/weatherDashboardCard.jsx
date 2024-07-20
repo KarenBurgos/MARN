@@ -4,15 +4,16 @@ import { PiWindLight } from "react-icons/pi";
 import { IoWaterOutline, IoUmbrellaOutline } from "react-icons/io5";
 import { useWeatherStation } from "../pages/weatherStationProvider";
 
-function WeatherDashboardCard(){
+function WeatherDashboardCard({data}){
     const { selectedStation } = useWeatherStation();
+    const actualWeather = data[0]
     return(
         <div className="bg-primary-dark flex rounded-lg justify-center p-5">
             <div>
                 <img src={sunnyDay} alt="estado del clima" className="h-36"/>
                 <span className="text-center">
                     <h1>Temperatura</h1>
-                    <p className="text-title-blue text-xl">20°C</p>
+                    <p className="text-title-blue text-xl">{actualWeather.ts} °C</p>
                     <p>8:00 a.m.</p>
                 </span>
             </div>
@@ -37,7 +38,7 @@ function WeatherDashboardCard(){
                                 Viento
                             </p>
                             <p className="text-xl">
-                                20 km/h
+                                {actualWeather.sa} km/h
                             </p>
                         </span>
                     </span>
@@ -48,7 +49,7 @@ function WeatherDashboardCard(){
                                 Humedad
                             </p>
                             <p className="text-xl">
-                                20%
+                                {actualWeather.hr} %
                             </p>
                         </span>
                     </span>
@@ -59,7 +60,7 @@ function WeatherDashboardCard(){
                                 Precipitación
                             </p>
                             <p className="text-xl">
-                                20 mm
+                                {actualWeather.pd} mm
                             </p>
                         </span>
                     </span>

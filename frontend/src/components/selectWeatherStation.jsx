@@ -25,6 +25,7 @@ const SelectWeatherStation = () => {
           { value: 'San Andres', label: 'San Andres' },
           { value: 'Santiago de Maria', label: 'Santiago de Maria' },
           { value: 'Nueva Concepcion', label: 'Nueva Concepcion' },
+          { value: 'Monte Cristo', label: 'Monte Cristo' },
         ]}
       />
     </Space>

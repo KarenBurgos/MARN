@@ -8,6 +8,7 @@ import { useWeatherStation } from "../pages/weatherStationProvider";
 const positionSanAndres = [13.802384478207026, -89.39612985778801];
 const positionSantiagoMaria = [13.485, -88.47166667];
 const positionNuevaConcepcion = [14.125, -89.29]
+const positionMontecristo = [14.327445469256123, -89.45130830398982]
 
 const icon = new Icon({
   iconUrl: markerIcon,
@@ -31,6 +32,9 @@ const MapSelector = () => {
       </Marker>
       <Marker position={positionNuevaConcepcion} icon={icon} eventHandlers={{ click: () => setSelectedStation("Nueva Concepcion"), }}>
         <Popup>Estación Nueva Concepcion</Popup>
+      </Marker>
+      <Marker position={positionMontecristo} icon={icon} eventHandlers={{ click: () => setSelectedStation("Monte cristo"), }}>
+        <Popup>Estación Montecristo</Popup>
       </Marker>
     </MapContainer>
   );
