@@ -1,0 +1,4 @@
+.map-container {
+    height: 100%; /* 50% de la altura de la pantalla */
+    width: 100%;  /* 100% del ancho del contenedor */
+  }

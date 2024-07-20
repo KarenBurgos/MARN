@@ -2,8 +2,10 @@ import sunnyDay from "../assets/icons/sunny day.png"
 import { CiLocationOn } from "react-icons/ci";
 import { PiWindLight } from "react-icons/pi";
 import { IoWaterOutline, IoUmbrellaOutline } from "react-icons/io5";
+import { useWeatherStation } from "../pages/weatherStationProvider";
 
 function WeatherDashboardCard(){
+    const { selectedStation } = useWeatherStation();
     return(
         <div className="bg-primary-dark flex rounded-lg justify-center p-5">
             <div>
