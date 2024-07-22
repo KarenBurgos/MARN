@@ -3,6 +3,9 @@ import Papa from 'papaparse';
 import { useWeatherStation } from '../pages/weatherStationProvider';
 import SanAndresData from "../Data/SanAndres.csv";
 import SantiagoMariaData from "../Data/SantiagoMaria.csv";
+import NuevaConcepcionData from "../Data/NuevaConcepcion.csv"
+import MontecristoData from "../Data/Montecristo.csv"
+import dayjs from 'dayjs';
 
 const ConvertDataToJson = () => {
   const { selectedStation } = useWeatherStation();
@@ -13,13 +16,17 @@ const ConvertDataToJson = () => {
   // URLs de los archivos CSV
   const csvUrls = [
     SanAndresData,
-    SantiagoMariaData
+    SantiagoMariaData,
+    NuevaConcepcionData,
+    MontecristoData
   ];
 
   // Mapeo de los nombres descriptivos a las claves en `data`
   const stationMapping = {
     'San Andres': 'stationSanAndres',
     'Santiago de Maria': 'stationSantiagoMaria',
+    'Nueva Concepcion': 'stationNuevaConcepcion',
+    'Monte Cristo': 'stationMonteCristo'
   };
 
   // Función para convertir CSV a JSON
@@ -39,20 +46,29 @@ const ConvertDataToJson = () => {
     });
   };
 
+  // Función para ordenar datos por fecha
+  const sortDataByDate = (data) => {
+    return data.sort((a, b) => {
+      const dateA = dayjs(a.fecha);
+      const dateB = dayjs(b.fecha);
+      return dateA.isBefore(dateB) ? -1 : dateA.isAfter(dateB) ? 1 : 0;
+    });
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
         // Convertir cada archivo CSV en JSON con nombres descriptivos para las claves
         const dataEntries = await Promise.all(
           csvUrls.map((url, index) => {
-            const key = `station${['SanAndres', 'SantiagoMaria'][index]}`;
+            const key = `station${['SanAndres', 'SantiagoMaria', 'NuevaConcepcion', 'MonteCristo'][index]}`;
             return fetchCsvData(url, key);
           })
         );
 
         // Convertir el array de datos a un objeto con claves descriptivas
         const dataMap = dataEntries.reduce((acc, { key, data }) => {
-          acc[key] = data;
+          acc[key] = sortDataByDate(data); // Ordenar los datos por fecha antes de guardarlos
           return acc;
         }, {});
 
@@ -70,7 +86,6 @@ const ConvertDataToJson = () => {
   // Obtener la clave correcta basándote en el mapeo
   const stationKey = stationMapping[selectedStation] || 'stationSanAndres';
   const stationData = data[stationKey] || [];
-
 
   return { data: stationData, loading, error };
 };

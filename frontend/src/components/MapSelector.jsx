@@ -33,7 +33,7 @@ const MapSelector = () => {
       <Marker position={positionNuevaConcepcion} icon={icon} eventHandlers={{ click: () => setSelectedStation("Nueva Concepcion"), }}>
         <Popup>Estación Nueva Concepcion</Popup>
       </Marker>
-      <Marker position={positionMontecristo} icon={icon} eventHandlers={{ click: () => setSelectedStation("Monte cristo"), }}>
+      <Marker position={positionMontecristo} icon={icon} eventHandlers={{ click: () => setSelectedStation("Monte Cristo"), }}>
         <Popup>Estación Montecristo</Popup>
       </Marker>
     </MapContainer>

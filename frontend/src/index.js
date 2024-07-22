@@ -7,6 +7,7 @@ import LayoutSideMenu from './layout/layoutSideMenu';
 import { ConfigProvider, theme } from 'antd';
 import { createBrowserRouter, Route, RouterProvider, Routes } from 'react-router-dom';
 import HomeDashboard from './pages/homeDashboard';
+import TemperaturePage from './pages/temperaturePage';
 
 const router = createBrowserRouter([
   {
@@ -17,12 +18,13 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomeDashboard />,
       },
+      {
+        path: "/temperatura",
+        element: <TemperaturePage />,
+      },
     ],
+    
   },
-  // {
-  //   path: "*",
-  //   element: <Error />
-  // }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

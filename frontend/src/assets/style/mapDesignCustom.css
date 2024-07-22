@@ -2,3 +2,7 @@
     height: 100%; /* 50% de la altura de la pantalla */
     width: 100%;  /* 100% del ancho del contenedor */
   }
+
+  .apexcharts-canvas.apexcharts-theme-dark {
+    background: #424242 !important;
+  }

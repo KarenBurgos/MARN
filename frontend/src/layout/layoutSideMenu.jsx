@@ -4,7 +4,7 @@ import { IoHomeOutline } from 'react-icons/io5';
 import { WiDayCloudy } from 'react-icons/wi';
 import { BsBadge3D } from 'react-icons/bs';
 import { PiBuildingOffice } from 'react-icons/pi';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { WeatherStationProvider } from '../pages/weatherStationProvider';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -16,9 +16,13 @@ function getItem(label, key, icon, children) {
 const menuItems = [
   getItem('Inicio', 'home', <IoHomeOutline size={18} />),
   getItem('Categorias', 'category', <WiDayCloudy size={22} />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
+    getItem('Temperatura', 'temp'),
+    getItem('Humedad y Presión', 'hum'),
+    getItem('Precipitación y Agua', 'precipitation'),
+    getItem('Viento', 'wind'), 
+    getItem('Nubosidad y Radiación', 'nub'), 
+    getItem('Luz Solar y Evaporación', 'light'), 
+    getItem('Otros Fenómenos', 'others'), 
   ]),
   getItem('Modelos 3D', '3d', <BsBadge3D size={20} />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Sobre nosotros', 'about-us', <PiBuildingOffice size={20} />),
@@ -27,13 +31,58 @@ const menuItems = [
 const LayoutSideMenu = () => {
   const [collapsed, setCollapsed] = useState(false);
 
+  const navigate = useNavigate(); // Hook para la navegación
+
+  const handleMenuClick = (e) => {
+    switch (e.key) {
+      case 'home':
+        navigate('/');
+        break;
+      case 'temp':
+        navigate('/temperatura');
+        break;
+      case 'hum':
+        navigate('/humidity');
+        break;
+      case 'precipitation':
+        navigate('/precipitation');
+        break;
+      case 'wind':
+        navigate('/wind');
+        break;
+      case 'nub':
+        navigate('/clouds');
+        break;
+      case 'light':
+        navigate('/solar');
+        break;
+      case 'others':
+        navigate('/others');
+        break;
+      case '3d':
+        navigate('/3d');
+        break;
+      case '6':
+        navigate('/team1');
+        break;
+      case '8':
+        navigate('/team2');
+        break;
+      case 'about-us':
+        navigate('/about-us');
+        break;
+      default:
+        navigate('/');
+    }
+  };
+
   return (
     <WeatherStationProvider>
       <Layout theme={"light"} style={{ minHeight: '100vh', backgroundColor: "#303845" }}>
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} width={250}>
           <div className="demo-logo-vertical" />
           <img src="https://www.ambiente.gob.sv/wp-content/themes/instituciones/img/LOGOMARN-B.png" alt="MARN logo" className='py-5' />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={menuItems} height={50} style={{ marginTop: "15%" }} />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={menuItems} height={50} style={{ marginTop: "15%" }} onClick={handleMenuClick} />
         </Sider>
         <Layout>
           <Content>

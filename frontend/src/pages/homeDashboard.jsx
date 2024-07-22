@@ -6,6 +6,7 @@ import MapSelector from "../components/MapSelector";
 import { useState } from "react";
 import { useWeatherStation } from "./weatherStationProvider";
 import ConvertDataToJson from "../services/convertData";
+import ChartDashboard from "../components/chats/chartDashboard";
 
 const HomeDashboard = () => {
   const { selectedStation } = useWeatherStation();
@@ -15,7 +16,7 @@ const HomeDashboard = () => {
 
   return (
     <section className="p-10">
-      <section className="grid grid-cols-2 gap-10">
+      <section className="grid grid-cols-2 gap-10 grid-rows-2 justify-between w-full">
         <article>
           <h2 className="text-white"> {!loading && !error && data.length > 0 ? data[0].fecha : 'Cargando...'}</h2>
           <h1 className="text-title-blue text-2xl">{selectedStation}</h1>
@@ -28,9 +29,13 @@ const HomeDashboard = () => {
             <h1>Estación:</h1>
             <SelectWeatherStation />
           </span>
-          <MapSelector data={data} />
+          {!loading && !error && <MapSelector data={data} />}
         </article>
+        <section>
+      {!loading && !error && <ChartDashboard data={data}/>}
       </section>
+      </section>
+      
     </section>
   );
 };
