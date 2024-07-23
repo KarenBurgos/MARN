@@ -17,12 +17,10 @@ const menuItems = [
   getItem('Inicio', 'home', <IoHomeOutline size={18} />),
   getItem('Categorias', 'category', <WiDayCloudy size={22} />, [
     getItem('Temperatura', 'temp'),
-    getItem('Humedad y Presión', 'hum'),
-    getItem('Precipitación y Agua', 'precipitation'),
-    getItem('Viento', 'wind'), 
-    getItem('Nubosidad y Radiación', 'nub'), 
-    getItem('Luz Solar y Evaporación', 'light'), 
-    getItem('Otros Fenómenos', 'others'), 
+    getItem('Humedad y condiciones del aire', 'hum'),
+    getItem('Precipitación ', 'precipitation'),
+    getItem('viento y visibilidad', 'wind'), 
+    getItem('Estado del suelo', 'nub'),
   ]),
   getItem('Modelos 3D', '3d', <BsBadge3D size={20} />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Sobre nosotros', 'about-us', <PiBuildingOffice size={20} />),
@@ -42,22 +40,16 @@ const LayoutSideMenu = () => {
         navigate('/temperatura');
         break;
       case 'hum':
-        navigate('/humidity');
+        navigate('/humedad');
         break;
       case 'precipitation':
-        navigate('/precipitation');
+        navigate('/precipitacion');
         break;
       case 'wind':
-        navigate('/wind');
+        navigate('/viento');
         break;
-      case 'nub':
+      case 'nub'://suelo
         navigate('/clouds');
-        break;
-      case 'light':
-        navigate('/solar');
-        break;
-      case 'others':
-        navigate('/others');
         break;
       case '3d':
         navigate('/3d');

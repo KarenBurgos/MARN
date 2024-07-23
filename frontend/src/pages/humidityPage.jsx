@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import CloudinessLineChart from "../components/chats/cloudinessChart";
+import HeatMapHumidityByMonth from "../components/chats/heatMap/heatMapHumidityByMonth";
+import HeatMapHumidityByYear from "../components/chats/heatMap/heatMapByHumidityYear";
+import TemperatureMaxMinProm from "../components/chats/lineChart/temperatureMaxMinProm";
 import MeasureCard from "../components/chats/measureCard";
 import SelectWeatherStation from "../components/selectWeatherStation";
 import ConvertDataToJson from "../services/convertData";
 import { useWeatherStation } from "./weatherStationProvider";
-import HeatMapByMonth from "../components/chats/heatMap/heatMapByMonth";
-import HeatMapByYear from "../components/chats/heatMap/heatMapByYear";
-import TemperatureMaxMinProm from "../components/chats/lineChart/temperatureMaxMinProm";
+import LineChartHumidity from "../components/chats/lineChart/lineChartHumidity";
+import LineChartHumidityByYear from "../components/chats/lineChart/lineChartNubosity";
+import LineChartNubosity from "../components/chats/lineChart/lineChartNubosity";
 
-function TemperaturePage() {
+function HumidityPage() {
     const { selectedStation } = useWeatherStation();
     const { data, loading, error } = ConvertDataToJson();
 
@@ -24,28 +25,28 @@ function TemperaturePage() {
                     <SelectWeatherStation />
                 </div>
             </article>
-            <h1 className="text-3xl text-center text-title-blue py-5">Temperatura</h1>
+            <h1 className="text-3xl text-center text-title-blue py-5">Humedad y condiciones del aire</h1>
             {(!loading && !error) &&
                 <article className="grid grid-cols-3 gap-5 ">
-                    <MeasureCard title={"Promedio"} value={data[0].ts} unit={"°C"} />
-                    <MeasureCard title={"Maxima"} value={data[0].tmax} unit={"°C"} />
-                    <MeasureCard title={"Minima"} value={data[0].tmin} unit={"°C"} />
+                    <MeasureCard title={"Humedad relativa"} value={data[0].hr} unit={"%"} />
+                    <MeasureCard title={"Nubosidad"} value={data[0].nub} unit={""} />
+                    <MeasureCard title={"Presión de vapor"} value={data[0].pvp} unit={"mmHg"} />
                 </article>
             }
             {(!loading && !error) &&
                 <>
                     <div className="grid grid-cols-2 gap-10 py-10">
-                        <HeatMapByMonth data={data}/>
-                        <HeatMapByYear data={data}/>
+                        <HeatMapHumidityByMonth data={data} />
+                        <HeatMapHumidityByYear data={data} />
                     </div>
-                    <div >
-                        <TemperatureMaxMinProm data={data}/>
+                    <div className="grid grid-cols-2 gap-10 py-10">
+                        <LineChartHumidity data={data}/>
+                        <LineChartNubosity data={data}/>
                     </div>
                 </>
             }
-            {/* <CloudinessLineChart/> */}
         </section>
     )
 }
 
-export default TemperaturePage;
+export default HumidityPage;

@@ -4,10 +4,11 @@ import { DatePicker, Space } from 'antd';
 import dayjs from 'dayjs';
 import "../../../assets/style/antDesignCustom.css"
 import FilterDataByMonth from "../../../services/filterDataByMonth";
+import { ImTextColor } from "react-icons/im";
 
 const { MonthPicker } = DatePicker;
 
-function HeatMapByMonth({ data }) {
+function HeatMapHumidityByMonth({ data }) {
   const [selectedMonth, setSelectedMonth] = useState(dayjs('2018-05-01'));
   const [filteredData, setFilteredData] = useState([]);
 
@@ -19,7 +20,9 @@ function HeatMapByMonth({ data }) {
     const filtered = data.filter(item => dayjs(item.fecha).year() === year && dayjs(item.fecha).month() === month);
 
     // Formatear datos para el heatmap
-    const heatmapData = FilterDataByMonth(filtered, 'ts');
+    const heatmapData = FilterDataByMonth(filtered, 'hr');
+    
+
     setFilteredData(heatmapData);
   }, [selectedMonth, data]);
 
@@ -44,19 +47,31 @@ function HeatMapByMonth({ data }) {
               },
               {
                 from: 1,
-                to: 17.9,
+                to: 19.99,
+                color: '#FFFFFF',
+                name: "0 - 50.99 %",
+              },
+              {
+                from: 20,
+                to: 39.99,
                 color: '#C7F464',
                 name: "0 - 17.9 °c",
               },
               {
-                from: 18,
-                to: 29.9,
+                from: 40,
+                to: 59.99,
                 color: '#81D4FA',
                 name: '18 - 29.9 °c',
               },
               {
-                from: 30,
-                to: 45,
+                from: 60,
+                to: 79.99,
+                color: '#FD6A6A',
+                name: '30 - 45 °c',
+              },
+              {
+                from: 80,
+                to: 100,
                 color: '#FD6A6A',
                 name: '30 - 45 °c',
               },
@@ -68,7 +83,7 @@ function HeatMapByMonth({ data }) {
         enabled: false,
       },
       title: {
-        text: `Heatmap de Temperatura para ${selectedMonth.format('MMMM YYYY')}`,
+        text: `Heatmap de humedad para ${selectedMonth.format('MMMM YYYY')}`,
         align: 'left',
       },
       xaxis: {
@@ -83,8 +98,8 @@ function HeatMapByMonth({ data }) {
         categories: ['07:00', '14:00', '21:00'],
       },
       theme: {
-        mode: 'dark',
-        palette: 'palette2',
+        mode: 'light',
+        palette: 'palette1',
         monochrome: {
           enabled: false,
           color: '#95FAFF', //color del grafico
@@ -92,7 +107,25 @@ function HeatMapByMonth({ data }) {
           shadeIntensity: 0.65
         },
       },
-      
+      tooltip: {
+        enabled: true,
+        enabledOnSeries: undefined,
+        shared: true,
+        followCursor: false,
+        intersect: false,
+        inverseOrder: false,
+        custom: undefined,
+        hideEmptySeries: true,
+        fillSeriesColor: false,
+        theme: 'dark',
+        style: {
+          fontSize: '12px',
+          fontFamily: undefined,
+          ImTextColor: "#000"
+        },
+        onDatasetHover: {
+            highlightDataSeries: false,
+        },}
     },
   };
 
@@ -120,4 +153,4 @@ function HeatMapByMonth({ data }) {
   );
 }
 
-export default HeatMapByMonth;
+export default HeatMapHumidityByMonth;

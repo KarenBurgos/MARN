@@ -8,6 +8,9 @@ import { ConfigProvider, theme } from 'antd';
 import { createBrowserRouter, Route, RouterProvider, Routes } from 'react-router-dom';
 import HomeDashboard from './pages/homeDashboard';
 import TemperaturePage from './pages/temperaturePage';
+import HumidityPage from './pages/humidityPage';
+import PrecipitationPage from './pages/precipitationPage';
+import WindPage from './pages/windPage';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +24,18 @@ const router = createBrowserRouter([
       {
         path: "/temperatura",
         element: <TemperaturePage />,
+      },
+      {
+        path: "/humedad",
+        element: <HumidityPage />,
+      },
+      {
+        path: "/precipitacion",
+        element: <PrecipitationPage />,
+      },
+      {
+        path: "/viento",
+        element: <WindPage />,
       },
     ],
     

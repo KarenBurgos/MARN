@@ -1,14 +1,37 @@
 import { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import dayjs from 'dayjs';
-import filterDataByYear from "../../../services/filterDataByYear";
 
-function HeatMapByYear({ data }) {
+function calculateMonthlyAverages(data) {
+  const years = Array.from(new Set(data.map(item => dayjs(item.fecha).year())));
+  const months = Array.from({ length: 12 }, (_, i) => dayjs().month(i).format('MMMM'));
+
+  // Inicializar estructura de datos
+  const heatmapData = years.map(year => ({
+    name: year.toString(),
+    data: months.map((month, index) => {
+      const monthlyData = data.filter(item => {
+        const itemDate = dayjs(item.fecha);
+        return itemDate.year() === year && itemDate.month() === index;
+      });
+
+      const average = monthlyData.length > 0
+        ? monthlyData.reduce((acc, curr) => acc + (curr.hr || 0), 0) / monthlyData.length
+        : 0;
+
+      return { x: month, y: average };
+    })
+  }));
+
+  return heatmapData;
+}
+
+function HeatMapByHumidityYear({ data }) {
   const [filteredData, setFilteredData] = useState([]);
     
   useEffect(() => {
     // Filtrar y calcular datos para el heatmap
-    const heatmapData = filterDataByYear(data, 'ts');
+    const heatmapData = calculateMonthlyAverages(data);
     setFilteredData(heatmapData);
   }, [data]);
 
@@ -76,8 +99,27 @@ function HeatMapByYear({ data }) {
         },
       },
       theme: {
-        mode: 'dark',
-      }
+        mode: 'light',
+      },
+      tooltip: {
+        enabled: true,
+        enabledOnSeries: undefined,
+        shared: true,
+        followCursor: false,
+        intersect: false,
+        inverseOrder: false,
+        custom: undefined,
+        hideEmptySeries: true,
+        fillSeriesColor: true,
+        theme: 'dark',
+        style: {
+          fontSize: '12px',
+          fontFamily: undefined
+        },
+        onDatasetHover: {
+            highlightDataSeries: false,
+        },}
+      
     },
   };
 
@@ -95,4 +137,4 @@ function HeatMapByYear({ data }) {
   );
 }
 
-export default HeatMapByYear;
+export default HeatMapByHumidityYear;
