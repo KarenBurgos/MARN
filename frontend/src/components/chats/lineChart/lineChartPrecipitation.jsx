@@ -14,10 +14,6 @@ function calculateMonthlyValues(data, year) {
       return itemDate.year() === year && itemDate.month() === index;
     });
 
-    if (monthlyData.length === 0) {
-      console.log(`No data for ${month} ${year}`);
-    }
-
     const averagePrecipitation = monthlyData.length > 0
       ? monthlyData.reduce((acc, curr) => acc + ((curr.p07 || 0) + (curr.p14 || 0) + (curr.p21 || 0)) / 3, 0) / monthlyData.length
       : 0;
@@ -25,14 +21,9 @@ function calculateMonthlyValues(data, year) {
     const averageRain = monthlyData.length > 0
       ? monthlyData.reduce((acc, curr) => acc + (curr.pd || 0), 0) / monthlyData.length
       : 0;
-
-    console.log(`Average precipitation for ${month} ${year}: ${averagePrecipitation.toFixed(2)}`);
-    console.log(`Average rain for ${month} ${year}: ${averageRain.toFixed(2)}`);
-
     return { month, averagePrecipitation: parseFloat(averagePrecipitation.toFixed(2)), averageRain: parseFloat(averageRain.toFixed(2)) };
   });
 
-  console.log(monthlyValues); // Verificar la salida de los valores calculados
   return monthlyValues;
 }
 

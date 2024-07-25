@@ -5,9 +5,9 @@ import Chart from 'react-apexcharts';
 
 const { Option } = Select;
 
-const RadarChartWind = ({ data }) => {
+const RRadarChartWind = ({ data }) => {
   const [selectedYear, setSelectedYear] = useState(dayjs().year());
-  const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1);
+  const [selectedMonth, setSelectedMonth] = useState(dayjs().month() + 1); // Mes seleccionado por defecto es el mes actual
 
   // Obtener años únicos de los datos
   const years = Array.from(new Set(data.map(item => dayjs(item.fecha).year())));
@@ -16,19 +16,14 @@ const RadarChartWind = ({ data }) => {
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
   // Filtrar datos según el año y mes seleccionados
-  const filteredData = data.filter(
-    item => dayjs(item.fecha).year() === selectedYear && dayjs(item.fecha).month() + 1 === selectedMonth
-  );
+  const filteredData = data.filter(item => dayjs(item.fecha).year() === selectedYear && dayjs(item.fecha).month() + 1 === selectedMonth);
 
   // Direcciones del viento posibles
   const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'C'];
 
-  // Verificar que los datos filtrados tengan la propiedad 'rd'
-  const validData = filteredData.filter(item => item.rd !== undefined);
-
   // Calcular la velocidad promedio para cada dirección
   const speedData = directions.map(dir => {
-    const dirData = validData.filter(item => item.rd === dir);
+    const dirData = filteredData.filter(item => item.rd === dir);
     const averageSpeed = dirData.length > 0
       ? dirData.reduce((acc, curr) => acc + curr.sa, 0) / dirData.length
       : 0;
@@ -95,4 +90,4 @@ const RadarChartWind = ({ data }) => {
   );
 };
 
-export default RadarChartWind;
+export default RRadarChartWind;

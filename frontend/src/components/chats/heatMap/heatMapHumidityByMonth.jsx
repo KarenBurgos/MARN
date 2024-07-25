@@ -102,11 +102,23 @@ function HeatMapHumidityByMonth({ data }) {
         palette: 'palette1',
         monochrome: {
           enabled: false,
-          color: '#95FAFF', //color del grafico
+          color: '#95FAFF',
           shadeTo: 'light',
           shadeIntensity: 0.65
         },
       },
+      noData: {
+        text: "vacio",
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+        color: "#000",
+        fontSize: '14px',
+        fontFamily: undefined
+        }
+    },
       tooltip: {
         enabled: true,
         enabledOnSeries: undefined,

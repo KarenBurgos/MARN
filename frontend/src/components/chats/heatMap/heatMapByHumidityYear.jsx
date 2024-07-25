@@ -45,6 +45,7 @@ function HeatMapByHumidityYear({ data }) {
         height: 350,
         type: 'heatmap',
         background: '#303845'
+        
       },
       plotOptions: {
         heatmap: {

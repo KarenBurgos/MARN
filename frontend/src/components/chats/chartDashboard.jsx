@@ -4,7 +4,6 @@ import "../../assets/style/mapDesignCustom.css"
 
 function ChartDashboard({ data }) {
   const actualWeather = data[0];
-  console.log(data[0].ts07)
   const [chartData, setChartData] = useState({
     series: [
       {

@@ -1,9 +1,6 @@
-// HomeDashboard Component
-import { useNavigate } from "react-router-dom";
 import WeatherDashboardCard from "../components/weatherDashboardCard";
 import SelectWeatherStation from "../components/selectWeatherStation";
 import MapSelector from "../components/MapSelector";
-import { useState } from "react";
 import { useWeatherStation } from "./weatherStationProvider";
 import ConvertDataToJson from "../services/convertData";
 import ChartDashboard from "../components/chats/chartDashboard";
@@ -11,8 +8,6 @@ import ChartDashboard from "../components/chats/chartDashboard";
 const HomeDashboard = () => {
   const { selectedStation } = useWeatherStation();
   const { data, loading, error } = ConvertDataToJson();
-
-  console.log("data: ", data);
 
   return (
     <section className="p-10">
@@ -31,11 +26,11 @@ const HomeDashboard = () => {
           </span>
           {!loading && !error && <MapSelector data={data} />}
         </article>
-        <section>
-      {!loading && !error && <ChartDashboard data={data}/>}
+        <section className="col-start-1 col-end-3">
+          {!loading && !error && <ChartDashboard data={data} />}
+        </section>
       </section>
-      </section>
-      
+
     </section>
   );
 };

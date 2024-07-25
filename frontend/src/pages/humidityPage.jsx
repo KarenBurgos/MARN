@@ -8,6 +8,8 @@ import { useWeatherStation } from "./weatherStationProvider";
 import LineChartHumidity from "../components/chats/lineChart/lineChartHumidity";
 import LineChartHumidityByYear from "../components/chats/lineChart/lineChartNubosity";
 import LineChartNubosity from "../components/chats/lineChart/lineChartNubosity";
+import DewConditionCategory from "../services/dewConditionCategory";
+import HeatMapDew from "../components/chats/heatMap/heatMapDew";
 
 function HumidityPage() {
     const { selectedStation } = useWeatherStation();
@@ -27,10 +29,11 @@ function HumidityPage() {
             </article>
             <h1 className="text-3xl text-center text-title-blue py-5">Humedad y condiciones del aire</h1>
             {(!loading && !error) &&
-                <article className="grid grid-cols-3 gap-5 ">
+                <article className="grid grid-cols-4 gap-5 ">
                     <MeasureCard title={"Humedad relativa"} value={data[0].hr} unit={"%"} />
                     <MeasureCard title={"Nubosidad"} value={data[0].nub} unit={""} />
                     <MeasureCard title={"Presión de vapor"} value={data[0].pvp} unit={"mmHg"} />
+                    <MeasureCard title={"Estado de rocio"} value={DewConditionCategory(data[0].er07)} unit={" rocio"} />
                 </article>
             }
             {(!loading && !error) &&
@@ -42,6 +45,9 @@ function HumidityPage() {
                     <div className="grid grid-cols-2 gap-10 py-10">
                         <LineChartHumidity data={data}/>
                         <LineChartNubosity data={data}/>
+                    </div>
+                    <div>
+                    <HeatMapDew data={data}/>
                     </div>
                 </>
             }

@@ -38,7 +38,16 @@ const ConvertDataToJson = () => {
           Papa.parse(csvText, {
             header: true,
             dynamicTyping: true,
-            complete: results => resolve({ key, data: results.data }),
+            complete: results => {
+              const cleanedData = results.data.map(item => ({
+                ...item,
+                rd07: item.rd07?.trim(),
+                rd14: item.rd14?.trim(),
+                rd21: item.rd21?.trim(),
+                rd: item.rd?.trim(),
+              }));
+              resolve({ key, data: cleanedData });
+            },
             error: err => reject(err),
           });
         })

@@ -11,6 +11,7 @@ import TemperaturePage from './pages/temperaturePage';
 import HumidityPage from './pages/humidityPage';
 import PrecipitationPage from './pages/precipitationPage';
 import WindPage from './pages/windPage';
+import SoilConditionPage from './pages/soilConditionPage';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/viento",
         element: <WindPage />,
+      },
+      {
+        path: "/soil",
+        element: <SoilConditionPage />,
       },
     ],
     

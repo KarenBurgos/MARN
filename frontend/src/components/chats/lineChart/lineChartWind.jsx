@@ -105,7 +105,6 @@ const WindMonthlyChart = ({ data }) => {
       </Select>
 
       <div className="chart-container">
-        <h3>Velocidad del Viento Promedio por Mes</h3>
         <Chart
           options={chartData.options}
           series={chartData.series}

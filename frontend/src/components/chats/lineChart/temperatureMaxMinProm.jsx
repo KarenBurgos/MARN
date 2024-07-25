@@ -63,8 +63,9 @@ function TemperatureMaxMinProm({ data }) {
       chart: {
         height: 350,
         type: 'bar',
-        background: '#303845'
+        background: '#303845',
       },
+      colors: ['#C73E3E', '#2090B8', '#FF9B1A'] ,
       plotOptions: {
         bar: {
           dataLabels: {

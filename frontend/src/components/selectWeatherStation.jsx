@@ -8,7 +8,6 @@ const SelectWeatherStation = () => {
 
   const handleChange = (value) => {
     setSelectedStation(value);
-    console.log(`selected ${value}`);
   };
 
   return (

@@ -1,8 +1,6 @@
 import dayjs from "dayjs";
 
-
   const FilterDataByMonth = (data, measure, includeAverage = false) => {
-    console.log("Data dentro de FilterDataByMonth:", data);
     const hours = ['07', '14', '21'];
 
     const dataFiltered = hours.map(hour => ({

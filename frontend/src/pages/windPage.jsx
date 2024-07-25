@@ -34,6 +34,7 @@ function WindPage(){
                 <div className="grid grid-cols-2 gap-10 py-10">
                     {/* <RadarChartWind data={data}/> */}
                     <LineChartWind data={data}/>
+                    <RadarChartWind data={data}/>
                 </div>
             </>
         }

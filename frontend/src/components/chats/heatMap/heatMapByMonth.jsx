@@ -4,6 +4,7 @@ import { DatePicker, Space } from 'antd';
 import dayjs from 'dayjs';
 import "../../../assets/style/antDesignCustom.css"
 import FilterDataByMonth from "../../../services/filterDataByMonth";
+import { marker } from "leaflet";
 
 const { MonthPicker } = DatePicker;
 
@@ -29,36 +30,47 @@ function HeatMapByMonth({ data }) {
       chart: {
         height: 350,
         type: 'heatmap',
-        background: '#303845'
+        background: '#303845',
+        
       },
+      colors: ['#7CD9FD', '#ACFED8', '#F9DC51', '#FB7A2C', '#FE0000'],
       plotOptions: {
         heatmap: {
-          shadeIntensity: 1,
+          useFillColorAsStroke: false,
+          shadeIntensity: 0,
+          
+        stacked: false,
           colorScale: {
             ranges: [
               {
                 from: 0,
-                to: 0,
-                color: '#FFFFFF',
-                name: "Sin datos",
+                to: 20.99,
+                color: '#7CD9FD',
+                name: "Frío: <br> 0°C a 21°C",
               },
               {
-                from: 1,
-                to: 17.9,
-                color: '#C7F464',
-                name: "0 - 17.9 °c",
+                from: 21,
+                to: 25.99,
+                color: '#ACFED8',
+                name: 'Templado <br> 21°C a 26°C',
               },
               {
-                from: 18,
-                to: 29.9,
-                color: '#81D4FA',
-                name: '18 - 29.9 °c',
+                from: 26,
+                to: 31.99,
+                color: '#F9DC51',
+                name: 'Cálido: <br> 26°C a 32°C',
               },
               {
                 from: 30,
+                to: 36.99,
+                color: '#FB7A2C',
+                name: 'Caliente: <br> 30°C a 37°C',
+              },
+              {
+                from: 37,
                 to: 45,
-                color: '#FD6A6A',
-                name: '30 - 45 °c',
+                color: '#FE0000',
+                name: 'Muy caliente: <br>37°C a 45°C',
               },
             ],
           },
@@ -67,32 +79,74 @@ function HeatMapByMonth({ data }) {
       dataLabels: {
         enabled: false,
       },
+      noData: {
+        text: "vacio",
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          color: "#000",
+          fontSize: '14px',
+          fontFamily: undefined
+        }
+      },
       title: {
         text: `Heatmap de Temperatura para ${selectedMonth.format('MMMM YYYY')}`,
         align: 'left',
+        style: {
+          fontSize: '14px',
+          fontFamily: undefined,
+          color: '#fff'
+        },
       },
       xaxis: {
         title: {
           text: 'Día del Mes',
         },
+        labels: {
+          style: {
+            colors: "#fff",
+            fontSize: '12px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 400,
+          },
+        }
       },
       yaxis: {
         title: {
           text: 'Hora del Día',
         },
+        labels: {
+          style: {
+            colors: "#fff",
+            fontSize: '12px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 400,
+            cssClass: 'apexcharts-xaxis-label',
+          },
+        },
         categories: ['07:00', '14:00', '21:00'],
       },
       theme: {
-        mode: 'dark',
-        palette: 'palette2',
-        monochrome: {
-          enabled: false,
-          color: '#95FAFF', //color del grafico
-          shadeTo: 'light',
-          shadeIntensity: 0.65
+        mode: 'light',
+      },
+      legend: {
+        show: true,
+        labels: {
+          colors: "#fff",
+          useSeriesColors: false,
+        },
+        itemMargin: {
+          horizontal: 20,
         },
       },
-      
+      stroke: {
+        show: true,
+        colors: ["#364963"],
+        width: 2,
+        dashArray: 0,
+      }
     },
   };
 

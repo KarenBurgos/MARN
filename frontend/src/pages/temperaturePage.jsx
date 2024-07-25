@@ -7,6 +7,7 @@ import { useWeatherStation } from "./weatherStationProvider";
 import HeatMapByMonth from "../components/chats/heatMap/heatMapByMonth";
 import HeatMapByYear from "../components/chats/heatMap/heatMapByYear";
 import TemperatureMaxMinProm from "../components/chats/lineChart/temperatureMaxMinProm";
+import DataTable from "../components/tables/dataTable";
 
 function TemperaturePage() {
     const { selectedStation } = useWeatherStation();
@@ -40,6 +41,9 @@ function TemperaturePage() {
                     </div>
                     <div >
                         <TemperatureMaxMinProm data={data}/>
+                    </div>
+                    <div>
+                        <DataTable data={data}/>
                     </div>
                 </>
             }

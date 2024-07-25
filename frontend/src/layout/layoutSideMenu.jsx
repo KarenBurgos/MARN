@@ -20,7 +20,7 @@ const menuItems = [
     getItem('Humedad y condiciones del aire', 'hum'),
     getItem('Precipitación ', 'precipitation'),
     getItem('viento y visibilidad', 'wind'), 
-    getItem('Estado del suelo', 'nub'),
+    getItem('Estado del suelo', 'soil'),
   ]),
   getItem('Modelos 3D', '3d', <BsBadge3D size={20} />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Sobre nosotros', 'about-us', <PiBuildingOffice size={20} />),
@@ -48,8 +48,8 @@ const LayoutSideMenu = () => {
       case 'wind':
         navigate('/viento');
         break;
-      case 'nub'://suelo
-        navigate('/clouds');
+      case 'soil'://suelo
+        navigate('/soil');
         break;
       case '3d':
         navigate('/3d');
