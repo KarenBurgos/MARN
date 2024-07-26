@@ -21,7 +21,7 @@ function HeatMapHumidityByMonth({ data }) {
 
     // Formatear datos para el heatmap
     const heatmapData = FilterDataByMonth(filtered, 'hr');
-    
+
 
     setFilteredData(heatmapData);
   }, [selectedMonth, data]);
@@ -34,46 +34,41 @@ function HeatMapHumidityByMonth({ data }) {
         type: 'heatmap',
         background: '#303845'
       },
+      colors: ['#F8FEFF', '#80DEFF', '#188FD1', '#005287', '#003354'],
       plotOptions: {
         heatmap: {
-          shadeIntensity: 1,
+          shadeIntensity: 0,
           colorScale: {
             ranges: [
               {
                 from: 0,
-                to: 0,
-                color: '#FFFFFF',
-                name: "Sin datos",
-              },
-              {
-                from: 1,
                 to: 19.99,
-                color: '#FFFFFF',
-                name: "0 - 50.99 %",
+                color: '#F8FEFF',
+                name: "0 - 20 %",
               },
               {
                 from: 20,
                 to: 39.99,
-                color: '#C7F464',
-                name: "0 - 17.9 °c",
+                color: '#80DEFF',
+                name: "20 - 40 %",
               },
               {
                 from: 40,
                 to: 59.99,
-                color: '#81D4FA',
-                name: '18 - 29.9 °c',
+                color: '#188FD1',
+                name: '40 - 60 %',
               },
               {
                 from: 60,
                 to: 79.99,
-                color: '#FD6A6A',
-                name: '30 - 45 °c',
+                color: '#005287',
+                name: '60 - 80 %',
               },
               {
                 from: 80,
                 to: 100,
-                color: '#FD6A6A',
-                name: '30 - 45 °c',
+                color: '#003354',
+                name: '90 - 100 %',
               },
             ],
           },
@@ -83,42 +78,87 @@ function HeatMapHumidityByMonth({ data }) {
         enabled: false,
       },
       title: {
-        text: `Heatmap de humedad para ${selectedMonth.format('MMMM YYYY')}`,
-        align: 'left',
+        text: `Cantidad de humedad para ${selectedMonth.format('MMMM YYYY')}`,
+        align: 'center',
+        style: {
+          color: '#C1F0FF',
+          fontSize: '16px'
+        },
       },
       xaxis: {
         title: {
           text: 'Día del Mes',
+          style: {
+            color: '#fff',
+            fontSize: '12px'
+          },
         },
+        labels: {
+          style: {
+            colors: "#fff",
+            fontSize: '12px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 400,
+          },
+        }
       },
       yaxis: {
         title: {
           text: 'Hora del Día',
+          style: {
+            color: '#fff',
+            fontSize: '12px'
+          },
         },
         categories: ['07:00', '14:00', '21:00'],
+        labels: {
+          style: {
+            colors: "#fff",
+            fontSize: '12px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 400,
+            cssClass: 'apexcharts-xaxis-label',
+          },
+        },
+      },
+      noData: {
+        text: "No se regristraron datos en esta fecha",
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          color: "#fff",
+          fontSize: '14px',
+          fontFamily: undefined
+        }
       },
       theme: {
         mode: 'light',
         palette: 'palette1',
         monochrome: {
           enabled: false,
-          color: '#95FAFF',
+          color: '#303845',
           shadeTo: 'light',
           shadeIntensity: 0.65
         },
       },
-      noData: {
-        text: "vacio",
-        align: 'center',
-        verticalAlign: 'middle',
-        offsetX: 0,
-        offsetY: 0,
-        style: {
-        color: "#000",
-        fontSize: '14px',
-        fontFamily: undefined
-        }
-    },
+      legend: {
+        show: true,
+        labels: {
+          colors: "#fff",
+          useSeriesColors: false,
+        },
+        itemMargin: {
+          horizontal: 20,
+        },
+      },
+      stroke: {
+        show: true,
+        colors: ["#303845"],
+        width: 2,
+        dashArray: 0,
+      },
       tooltip: {
         enabled: true,
         enabledOnSeries: undefined,
@@ -135,9 +175,7 @@ function HeatMapHumidityByMonth({ data }) {
           fontFamily: undefined,
           ImTextColor: "#000"
         },
-        onDatasetHover: {
-            highlightDataSeries: false,
-        },}
+      }
     },
   };
 
@@ -150,6 +188,7 @@ function HeatMapHumidityByMonth({ data }) {
             defaultValue={dayjs('2018-05-01')}
             onChange={(date) => setSelectedMonth(date)}
             picker="month"
+            allowClear={false}
           />
         </Space>
       </div>

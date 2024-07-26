@@ -1,56 +1,24 @@
-import React, { useMemo, useState, useContext } from 'react';
-import {
-  MaterialReactTable,
-  createMRTColumnHelper,
-  useMaterialReactTable,
-} from 'material-react-table';
-import { Box, Button, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import React, { useMemo } from 'react';
+import { ThemeProvider, createTheme, CssBaseline, Box, Button } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
+import * as XLSX from 'xlsx';
 
-// Define el ColorModeContext
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
-
-const columnHelper = createMRTColumnHelper();
-
-const DataTable = ({ data }) => {
-  const columns = [
-    columnHelper.accessor('fecha', {
-      header: 'Fecha',
-      size: 100,
-    }),
-    columnHelper.accessor('tmax', {
-      header: 'Temperatura máxima (°C)',
-      size: 100,
-    }),
-    columnHelper.accessor('tmin', {
-      header: 'Temperatura mínima (°C)',
-      size: 100,
-    }),
-    columnHelper.accessor('ts', {
-      header: 'Temperatura promedio (°C)',
-      size: 100,
-    }),
-    columnHelper.accessor('th', {
-      header: 'Temperatura Húmeda (°C)',
-      size: 100,
-    }),
-  ];
-
+const DataTable = ({ data, columns }) => {
   const handleExportRows = (rows) => {
-    const doc = new jsPDF();
-    const tableHeaders = columns.map((c) => c.header);
-    const tableData = rows.map((row) => {
-      return columns.map((col) => row.original[col.id]);
-    });
+    const headers = columns.map((c) => c.header);
+    const tableData = rows.map((row) => columns.map((col) => row.original[col.id]));
 
-    autoTable(doc, {
-      head: [tableHeaders],
-      body: tableData,
-    });
+    const ws = XLSX.utils.aoa_to_sheet([headers, ...tableData]);
+    
+    // Ajustar el ancho de las columnas basado en los encabezados
+    const maxLengths = headers.map(header => header.length);
+    ws['!cols'] = maxLengths.map(len => ({ wch: len + 2 })); // Añadir algo de espacio
 
-    doc.save('data.pdf');
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Data');
+
+    XLSX.writeFile(wb, 'data.xlsx');
   };
 
   const table = useMaterialReactTable({
@@ -73,14 +41,14 @@ const DataTable = ({ data }) => {
           onClick={() => handleExportRows(table.getPrePaginationRowModel().rows)}
           startIcon={<FileDownloadIcon />}
         >
-          Export All Rows
+          Exportar todas las filas
         </Button>
         <Button
           disabled={table.getRowModel().rows.length === 0}
           onClick={() => handleExportRows(table.getRowModel().rows)}
           startIcon={<FileDownloadIcon />}
         >
-          Export Page Rows
+          Exportar filas de la página actual
         </Button>
         <Button
           disabled={
@@ -89,21 +57,51 @@ const DataTable = ({ data }) => {
           onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
           startIcon={<FileDownloadIcon />}
         >
-          Export Selected Rows
+          Exportar filas seleccionadas
         </Button>
       </Box>
     ),
+    muiTablePaginationProps: {
+      labelRowsPerPage: 'Filas por página',
+    },
   });
 
-  return <MaterialReactTable table={table} />;
+  return (
+    <MaterialReactTable 
+      table={table} 
+      muiTableBodyProps={{
+        sx: {
+          backgroundColor: '#303845', // Fondo del cuerpo de la tabla
+          color: '#fff', // Color del texto
+        },
+      }}
+      muiTableContainerProps={{
+        sx: {
+          backgroundColor: '#303845', // Fondo del contenedor de la tabla
+        },
+      }}
+      muiTableHeadCellProps={{
+        sx: {
+          backgroundColor: '#303845', // Fondo del encabezado de la tabla
+          color: '#fff', // Color del texto del encabezado
+        },
+      }}
+      muiTablePaginationProps={{
+        sx: {
+          color: '#fff', // Color del texto en la paginación
+        },
+        labelRowsPerPage: 'Filas por página',
+      }}
+    />
+  );
 };
 
-const ToggleColorMode = ({ data }) => {
+const ToggleColorTable = ({ data, columns }) => {
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode: 'dark', // Set default mode to dark
+          mode: 'dark',
           background: {
             default: '#303845', // Color de fondo personalizado
           },
@@ -122,10 +120,10 @@ const ToggleColorMode = ({ data }) => {
           minHeight: '100vh',
         }}
       >
-        <DataTable data={data} />
+        <DataTable data={data} columns={columns} />
       </Box>
     </ThemeProvider>
   );
 };
 
-export default ToggleColorMode;
+export default ToggleColorTable;

@@ -16,16 +16,17 @@ import dayjs from "dayjs";
   
     if (includeAverage) {
       const averageData = {
-        name: 'Promedio',
-        data: data.map(item => ({
-          x: dayjs(item.fecha).date(),
-          y: item.hr !== undefined ? item.hr : 0
-        }))
+          name: 'Promedio',
+          data: data.map(item => ({
+              x: dayjs(item.fecha).date(),
+              y: item[measure] !== undefined ? item[measure] : 0
+          }))
       };
+
       dataFiltered.push(averageData);
-    }
-    
-    return dataFiltered;
-  };
+  }
+
+  return dataFiltered;
+};
 
   export default FilterDataByMonth;

@@ -61,7 +61,9 @@ const LineChartPrecipitation = ({ data }) => {
         height: 350,
         type: 'line',
         stacked: false,
+        background: '#303845',
       },
+      colors:['#49DCFF', '#FFA94D'],
       dataLabels: {
         enabled: false,
       },
@@ -70,12 +72,24 @@ const LineChartPrecipitation = ({ data }) => {
       },
       title: {
         text: `Promedio de Precipitación y Lluvia Acumulada en ${selectedYear}`,
-        align: 'left',
+        align: 'center',
+        style: {
+          color: '#C1F0FF',
+          fontSize: '16px'
+        },
       },
       xaxis: {
         categories: months,
+        style: {
+          color: '#C1F0FF',
+          fontSize: '16px'
+        },
         title: {
           text: 'Mes',
+          style: {
+            color: '#C1F0FF',
+            fontSize: '16px'
+          },
         },
       },
       yaxis: [
@@ -86,17 +100,17 @@ const LineChartPrecipitation = ({ data }) => {
           },
           axisBorder: {
             show: true,
-            color: '#008FFB',
+            color: '#49DCFF',
           },
           labels: {
             style: {
-              colors: '#008FFB',
+              colors: '#49DCFF',
             },
           },
           title: {
             text: "Promedio de Precipitación (mm)",
             style: {
-              color: '#008FFB',
+              color: '#49DCFF',
             },
           },
           tooltip: {
@@ -111,17 +125,17 @@ const LineChartPrecipitation = ({ data }) => {
           },
           axisBorder: {
             show: true,
-            color: '#00E396',
+            color: '#FFA94D',
           },
           labels: {
             style: {
-              colors: '#00E396',
+              colors: '#FFA94D',
             },
           },
           title: {
             text: "Promedio de Lluvia Acumulada (mm)",
             style: {
-              color: '#00E396',
+              color: '#FFA94D',
             },
           },
         },
@@ -135,22 +149,32 @@ const LineChartPrecipitation = ({ data }) => {
         },
       },
       legend: {
-        horizontalAlign: 'left',
-        offsetX: 40,
+        show: true,
+        labels: {
+          colors: "#fff",
+          useSeriesColors: false,
+          width: 550,
+        },
+        itemMargin: {
+          horizontal: 20,
+        },
       },
-      theme:{
-        mode:'dark'
+      theme: {
+        mode: 'light',
       }
     },
   };
 
   return (
     <div>
-      <Select defaultValue={selectedYear} style={{ width: 120 }} onChange={handleYearChange}>
-        {years.map(year => (
-          <Option key={year} value={year}>{year}</Option>
-        ))}
-      </Select>
+      <div className='flex pb-3'>
+      <p className="text-nowrap pr-3 text-center self-center">Escoger Año:</p>
+        <Select defaultValue={selectedYear} style={{ width: "100%"}} className="ant-selector-custom"onChange={handleYearChange} >
+          {years.map(year => (
+            <Option key={year} value={year}>{year}</Option>
+          ))}
+        </Select>
+      </div>
 
       <Chart
         options={chartData.options}

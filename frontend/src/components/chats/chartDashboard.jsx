@@ -41,7 +41,7 @@ function ChartDashboard({ data }) {
         palette: 'palette2',
         monochrome: {
           enabled: true,
-          color: '#567796', //color del grafico
+          color: '#99CEFF', //color del grafico
           shadeTo: 'dark',
           shadeIntensity: 0.65
         },
@@ -102,7 +102,7 @@ function ChartDashboard({ data }) {
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}
-        type="line"
+        type="area"
         height={350}
       />
     </div>

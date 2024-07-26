@@ -11,11 +11,11 @@ const SelectWeatherStation = () => {
   };
 
   return (
-    <Space wrap style={{ backgroundColor: "#303845", width: '100%' }}>
+    <Space wrap style={{ backgroundColor: "transparent", width: '100%' }}>
       <Select
         defaultValue={selectedStation}
         value={selectedStation}
-        style={{ backgroundColor: "#303845", width: "100%" }}
+        style={{ width: "100%", borderRadius: '2rem', borderColor: '#fff !important'}}
         size="medium"
         className="ant-selector-custom"
         dropdownStyle={{ backgroundColor: '#303845' }}

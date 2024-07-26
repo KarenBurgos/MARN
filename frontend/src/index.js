@@ -66,6 +66,18 @@ root.render(
         Select:{
           selectorBg: "#303845",
           optionSelectedBg:"#3C4557",
+        },
+        DatePicker: {
+          colorTextPlaceholder: '#ffffff', 
+          colorPrimary:'#7687a5',
+          colorText: '#ffffff', 
+          colorBorder: '#7687a5', 
+          colorBgElevated: '#58667D', //color del calendario desplegado
+          
+        },
+        Table:{
+           headerBg: "#272E38",
+            borderColor: "#272E38"
         }
       },
     }}

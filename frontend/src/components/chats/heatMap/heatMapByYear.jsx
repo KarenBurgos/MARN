@@ -96,7 +96,7 @@ function HeatMapByYear({ data }) {
         }
       },
       title: {
-        text: 'Heatmap de Temperatura por Año',
+        text: 'Temperatura media por Año',
         align: 'left',
         style: {
           fontSize: '14px',
@@ -107,7 +107,10 @@ function HeatMapByYear({ data }) {
       xaxis: {
         title: {
           text: 'Día del Mes',
-          colors: '#fff'
+          style: {
+            color: '#fff',
+            fontSize: '12px'
+          },
         },
         labels: {
           style: {
@@ -121,7 +124,10 @@ function HeatMapByYear({ data }) {
       yaxis: {
         title: {
           text: 'Hora del Día',
-          colors: '#fff'
+          style: {
+            color: '#fff',
+            fontSize: '12px'
+          },
         },
         labels: {
           style: {

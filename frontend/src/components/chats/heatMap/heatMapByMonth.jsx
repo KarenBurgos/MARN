@@ -4,7 +4,6 @@ import { DatePicker, Space } from 'antd';
 import dayjs from 'dayjs';
 import "../../../assets/style/antDesignCustom.css"
 import FilterDataByMonth from "../../../services/filterDataByMonth";
-import { marker } from "leaflet";
 
 const { MonthPicker } = DatePicker;
 
@@ -31,15 +30,15 @@ function HeatMapByMonth({ data }) {
         height: 350,
         type: 'heatmap',
         background: '#303845',
-        
+
       },
-      colors: ['#7CD9FD', '#ACFED8', '#F9DC51', '#FB7A2C', '#FE0000'],
+      colors: ['#7CD9FD', '#ACFED8', '#F9EE92', '#F09B59', '#E6817E'],
       plotOptions: {
         heatmap: {
           useFillColorAsStroke: false,
           shadeIntensity: 0,
-          
-        stacked: false,
+
+          stacked: false,
           colorScale: {
             ranges: [
               {
@@ -57,19 +56,19 @@ function HeatMapByMonth({ data }) {
               {
                 from: 26,
                 to: 31.99,
-                color: '#F9DC51',
+                color: '#F9EE92',
                 name: 'Cálido: <br> 26°C a 32°C',
               },
               {
                 from: 30,
                 to: 36.99,
-                color: '#FB7A2C',
+                color: '#F09B59',
                 name: 'Caliente: <br> 30°C a 37°C',
               },
               {
                 from: 37,
                 to: 45,
-                color: '#FE0000',
+                color: '#E6817E',
                 name: 'Muy caliente: <br>37°C a 45°C',
               },
             ],
@@ -80,19 +79,19 @@ function HeatMapByMonth({ data }) {
         enabled: false,
       },
       noData: {
-        text: "vacio",
+        text: "No se regristraron datos en esta fecha",
         align: 'center',
         verticalAlign: 'middle',
         offsetX: 0,
         offsetY: 0,
         style: {
-          color: "#000",
+          color: "#fff",
           fontSize: '14px',
           fontFamily: undefined
         }
       },
       title: {
-        text: `Heatmap de Temperatura para ${selectedMonth.format('MMMM YYYY')}`,
+        text: `Temperatura media para ${selectedMonth.format('MMMM YYYY')}`,
         align: 'left',
         style: {
           fontSize: '14px',
@@ -103,6 +102,10 @@ function HeatMapByMonth({ data }) {
       xaxis: {
         title: {
           text: 'Día del Mes',
+          style: {
+            color: '#fff',
+            fontSize: '12px'
+          },
         },
         labels: {
           style: {
@@ -116,6 +119,10 @@ function HeatMapByMonth({ data }) {
       yaxis: {
         title: {
           text: 'Hora del Día',
+          style: {
+            color: '#fff',
+            fontSize: '12px'
+          },
         },
         labels: {
           style: {
@@ -129,7 +136,7 @@ function HeatMapByMonth({ data }) {
         categories: ['07:00', '14:00', '21:00'],
       },
       theme: {
-        mode: 'light',
+        mode: 'dark',
       },
       legend: {
         show: true,
@@ -159,6 +166,7 @@ function HeatMapByMonth({ data }) {
             defaultValue={dayjs('2018-05-01')}
             onChange={(date) => setSelectedMonth(date)}
             picker="month"
+            allowClear={false}
           />
         </Space>
       </div>

@@ -106,16 +106,19 @@ function HeatMapDew({data}) {
             },
             title: {
                 text: `Cantidad de rocio en ${selectedMonth.format('MMMM YYYY')}`,
-                align: 'left',
+                align: 'center',
                 style: {
-                    fontSize: '14px',
-                    fontFamily: undefined,
-                    color: '#fff',
+                  color: '#C1F0FF',
+                  fontSize: '16px'
                 },
             },
             xaxis: {
                 title: {
                     text: 'Día del Mes',
+                    style: {
+                        color: '#fff',
+                        fontSize: '12px'
+                      },
                 },
                 labels: {
                     style: {
@@ -128,7 +131,11 @@ function HeatMapDew({data}) {
             },
             yaxis: {
                 title: {
-                    text: 'Hora del Día',
+                    text: 'Hora',
+                    style: {
+                        color: '#fff',
+                        fontSize: '12px'
+                      },
                 },
                 labels: {
                     style: {
