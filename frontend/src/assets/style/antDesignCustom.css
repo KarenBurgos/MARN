@@ -1,0 +1,43 @@
+/* .ant-menu li{
+    padding-bottom: 5%;
+} */
+
+li {
+    margin-bottom: 10% !important;
+}
+
+.ant-space-item {
+    width: 100%;
+}
+
+.ant-picker {
+    width: 100%;
+    background-color: #65738d;
+    border: #303845;
+}
+.ant-picker:hover {
+    width: 100%;
+    background-color: #7687a5;
+    border: #303845;
+}
+.ant-picker:active {
+    width: 100%;
+    background-color: #7687a5;
+    border: #303845;
+}
+
+
+.apexcharts-tooltip {
+    background: #0000007c;
+    color: #000000;
+}
+
+.ant-selector-custom .ant-select-selector {
+    border: 1px !important;
+    border-style: solid !important;
+    border-color: #567796 !important;
+}
+
+.ant-table-content{
+    background-color: #303845;
+}
