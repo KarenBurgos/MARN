@@ -23,7 +23,6 @@ const menuItems = [
     getItem('Estado del suelo', 'soil'),
   ]),
   getItem('Modelos 3D', '3d', <BsBadge3D size={20} />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Sobre nosotros', 'about-us', <PiBuildingOffice size={20} />),
 ];
 
 const LayoutSideMenu = () => {
@@ -59,9 +58,6 @@ const LayoutSideMenu = () => {
         break;
       case '8':
         navigate('/team2');
-        break;
-      case 'about-us':
-        navigate('/about-us');
         break;
       default:
         navigate('/');
